@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { router, updateRouterContext } from './app/router'
 import { queryClient } from './shared/lib/queryClient'
 import { Toaster } from './shared/components/ui/Toast'
+import { ErrorBoundary } from './shared/components/error/ErrorBoundary'
 import './shared/styles/globals.css'
 
 // Initialize router context with current auth state
@@ -16,11 +17,13 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <Toaster />
-        {import.meta.env.DEV && <ReactQueryDevtools />}
-      </QueryClientProvider>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <Toaster />
+          {import.meta.env.DEV && <ReactQueryDevtools />}
+        </QueryClientProvider>
+      </ErrorBoundary>
     </StrictMode>
   )
 }
