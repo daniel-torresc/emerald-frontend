@@ -78,9 +78,9 @@ export const LoginForm = () => {
             aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? (
-              <ViewOffIcon size={18} variant="stroke" />
+              <ViewOffIcon size={18} />
             ) : (
-              <ViewIcon size={18} variant="stroke" />
+              <ViewIcon size={18} />
             )}
           </button>
         </div>

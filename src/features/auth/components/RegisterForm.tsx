@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ViewIcon, ViewOffIcon } from 'hugeicons-react'
+import { ViewIcon, ViewOffIcon, Tick02Icon, Cancel01Icon, Loading03Icon } from 'hugeicons-react'
 import { registerSchema, type RegisterFormData, getPasswordStrength } from '../schemas/authSchemas'
 import { useRegister } from '../hooks/useRegister'
+import { useCheckUsername } from '../hooks/useCheckUsername'
+import { useDebounce } from '@/shared/hooks'
 import { Button } from '@/shared/components/ui/Button'
 import { Input } from '@/shared/components/ui/Input'
 import { Label } from '@/shared/components/ui/Label'
@@ -34,9 +36,28 @@ export const RegisterForm = () => {
   })
 
   const password = watch('password')
+  const username = watch('username')
   const passwordStrength = password ? getPasswordStrength(password) : null
 
+  // Debounce username input for availability check
+  const debouncedUsername = useDebounce(username, 500)
+
+  // Check username availability (only if username is valid length)
+  const {
+    data: usernameCheckData,
+    isLoading: isCheckingUsername,
+    error: usernameCheckError,
+  } = useCheckUsername(debouncedUsername, {
+    enabled:
+      debouncedUsername.length >= 3 && debouncedUsername.length <= 50 && !errors.username,
+  })
+
   const onSubmit = (data: RegisterFormData) => {
+    // Don't submit if username is taken
+    if (usernameCheckData && !usernameCheckData.available) {
+      return
+    }
+
     register({
       email: data.email,
       username: data.username,
@@ -87,15 +108,47 @@ export const RegisterForm = () => {
             </div>
           </div>
         </div>
-        <Input
-          id="username"
-          type="text"
-          autoComplete="username"
-          placeholder="johndoe"
-          disabled={isPending}
-          error={errors.username?.message}
-          {...registerField('username')}
-        />
+        <div className="relative">
+          <Input
+            id="username"
+            type="text"
+            autoComplete="username"
+            placeholder="johndoe"
+            disabled={isPending}
+            error={errors.username?.message}
+            className="pr-10"
+            {...registerField('username')}
+          />
+          {/* Username availability indicator */}
+          {debouncedUsername.length >= 3 && !errors.username && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              {isCheckingUsername ? (
+                <Loading03Icon size={20} className="text-text-tertiary animate-spin" />
+              ) : usernameCheckError ? (
+                <Cancel01Icon size={20} className="text-error" />
+              ) : usernameCheckData?.available ? (
+                <Tick02Icon size={20} className="text-success" />
+              ) : (
+                <Cancel01Icon size={20} className="text-error" />
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Username availability message */}
+        {debouncedUsername.length >= 3 && !errors.username && (
+          <div className="text-xs">
+            {isCheckingUsername ? (
+              <p className="text-text-secondary">Checking availability...</p>
+            ) : usernameCheckError ? (
+              <p className="text-error">Error checking username availability</p>
+            ) : usernameCheckData?.available ? (
+              <p className="text-success">Username is available</p>
+            ) : (
+              <p className="text-error">Username is already taken</p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Password field with strength indicator */}
@@ -131,9 +184,9 @@ export const RegisterForm = () => {
             tabIndex={-1}
           >
             {showPassword ? (
-              <ViewOffIcon size={18} variant="stroke" />
+              <ViewOffIcon size={18} />
             ) : (
-              <ViewIcon size={18} variant="stroke" />
+              <ViewIcon size={18} />
             )}
           </button>
         </div>
@@ -188,9 +241,9 @@ export const RegisterForm = () => {
             tabIndex={-1}
           >
             {showConfirmPassword ? (
-              <ViewOffIcon size={18} variant="stroke" />
+              <ViewOffIcon size={18} />
             ) : (
-              <ViewIcon size={18} variant="stroke" />
+              <ViewIcon size={18} />
             )}
           </button>
         </div>
@@ -225,7 +278,16 @@ export const RegisterForm = () => {
       </div>
 
       {/* Submit button */}
-      <Button type="submit" disabled={isPending} variant="primary" className="w-full mt-6 h-12 text-base">
+      <Button
+        type="submit"
+        disabled={
+          isPending ||
+          isCheckingUsername ||
+          (usernameCheckData && !usernameCheckData.available)
+        }
+        variant="primary"
+        className="w-full mt-6 h-12 text-base"
+      >
         {isPending ? (
           <>
             <Spinner size="sm" className="mr-2" />
