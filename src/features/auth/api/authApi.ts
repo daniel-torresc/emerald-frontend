@@ -45,4 +45,12 @@ export const authApi = {
       new_password: newPassword,
     })
   },
+
+  // Check username availability
+  checkUsername: async (username: string): Promise<{ available: boolean }> => {
+    const { data } = await api.get<{ available: boolean }>(
+      `/api/auth/check-username?username=${encodeURIComponent(username)}`
+    )
+    return data
+  },
 }

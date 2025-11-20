@@ -5,6 +5,7 @@ export type { User } from '../stores/authStore'
 export interface LoginCredentials {
   email: string
   password: string
+  rememberMe?: boolean
 }
 
 export interface RegisterCredentials {
