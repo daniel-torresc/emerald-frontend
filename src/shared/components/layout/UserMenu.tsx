@@ -2,6 +2,7 @@ import { User, Settings, LogOut } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { useLogout } from '@/features/auth/hooks/useLogout'
+import { cn } from '@/shared/lib/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +12,11 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components/ui/DropdownMenu'
 
-export const UserMenu = () => {
+interface UserMenuProps {
+  collapsed?: boolean
+}
+
+export const UserMenu = ({ collapsed = false }: UserMenuProps) => {
   const user = useAuthStore((state) => state.user)
   const { mutate: logout } = useLogout()
 
@@ -19,12 +24,28 @@ export const UserMenu = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-surface-elevated focus:outline-none focus:ring-2 focus:ring-accent">
-        <User className="h-5 w-5 text-text-secondary" />
-        <span className="text-sm text-text-primary font-medium">{user.username}</span>
+      <DropdownMenuTrigger asChild>
+        <button
+          className={cn(
+            'flex items-center w-full h-12 rounded-lg',
+            'hover:bg-surface-glass transition-colors',
+            'focus:outline-none focus:ring-2 focus:ring-accent/50',
+            collapsed ? 'justify-center px-0' : 'justify-start px-3'
+          )}
+        >
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-accent text-white shrink-0">
+            <User className="w-4 h-4" />
+          </div>
+          {!collapsed && (
+            <div className="ml-3 text-left overflow-hidden">
+              <p className="text-sm font-medium truncate text-text-primary">{user.username}</p>
+              <p className="text-xs text-text-secondary truncate">{user.email}</p>
+            </div>
+          )}
+        </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent side="right" align="end" className="w-56">
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium text-text-primary">{user.username}</p>

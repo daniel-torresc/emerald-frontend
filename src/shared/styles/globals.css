@@ -71,8 +71,28 @@ body::after {
   }
 }
 
-/* Modern Focus styles with glow */
-*:focus-visible {
+/* Remove default browser focus styles from buttons */
+button:focus,
+button:focus-visible {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+button:active {
+  outline: none !important;
+}
+
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+
+/* Modern Focus styles with glow - for non-button elements */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   box-shadow: 0 0 0 4px var(--color-accent-subtle);
@@ -175,6 +195,9 @@ input, button, textarea, select {
 
 button {
   cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 a {
@@ -217,3 +240,31 @@ svg[width][height] {
 .icon-wrapper-md { width: 2.75rem; height: 2.75rem; } /* 44px */
 .icon-wrapper-lg { width: 3.5rem; height: 3.5rem; }  /* 56px */
 .icon-wrapper-xl { width: 4rem; height: 4rem; }    /* 64px */
+
+/* Sidebar transition utilities */
+.sidebar-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Navigation item slide animation */
+.nav-item-slide {
+  @apply transition-transform duration-200 ease-out;
+}
+
+.nav-item-slide:hover {
+  @apply translate-x-2;
+}
+
+/* Icon centering utility to prevent shifts */
+.icon-container {
+  @apply flex items-center justify-center shrink-0;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
