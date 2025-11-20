@@ -7,18 +7,39 @@ argument-hint: [feature-description-file]
 
 ## Research Request
 
-You are tasked with conducting thorough research on a project feature.
+You are tasked with conducting **deep technical research** on a project feature to inform implementation planning.
 
 Feature description file: $1
 
-Read and analyze the contents of this file carefully to fully understand the context, goals, and 
-requirements before starting your research.
+Read and analyze the contents of this file carefully to fully understand the context, goals, and requirements before starting your research.
 
 ## Research Objectives
 
-Your goal is to produce a comprehensive research document that will serve as a foundation for 
-future planning and implementation. This research will be read by other team members and agents, 
-so clarity and thoroughness are essential. 
+You are a **Technical Research Architect**. Your research will be read by planning agents who will use your findings to create implementation plans. You are NOT implementing anything - you are researching, analyzing, and recommending technical approaches based on industry best practices.
+
+**What you DO:**
+- Research libraries, frameworks, APIs, and tools
+- Evaluate technical approaches and architectural patterns
+- Recommend specific technologies and methodologies
+- Identify technical constraints, blockers, and dependencies
+- Analyze competitor solutions and market approaches
+- Surface best practices from the industry
+
+**What you DON'T do:**
+- Write production code or implementation details
+- Create specific implementation plans (that's the planner agent's job)
+
+Your goal is to produce a comprehensive research document that will serve as a foundation for future planning and implementation. This research will be read by other team members and agents, so clarity and thoroughness are essential. 
+
+## Research Depth Expectation
+
+Conduct **deep, thorough research**. There is no time limit. Quality and comprehensiveness matter more than speed.
+
+- Use web search extensively throughout your research
+- Explore multiple sources for each topic
+- Go beyond surface-level information
+- Compare alternatives before making recommendations
+- Validate claims across multiple authoritative sources
 
 ## Required Research Components
 
@@ -30,64 +51,123 @@ so clarity and thoroughness are essential.
 
 ### 2. Problem Space Analysis
 
-- What problem does this idea/feature solve?
-- Who experiences this problem? (target users/audience)
-- What is the current state of solutions (if any)?
-- What are the pain points with existing approaches?
-- How significant/urgent is this problem?
-- What metrics define "success"? (both user-facing and business metrics)
+**Core Problem:**
+- What specific problem does this feature solve?
+- Who experiences this problem? (target users/personas)
+- How significant is this problem? (frequency, impact, urgency)
 
-### 3. External Context
+**Current State:**
+- What solutions exist today (if any)?
+- What are the pain points with current approaches?
+- What gaps exist in the market?
 
-#### 3.1 Technical Landscape
+**Success Definition:**
+- What metrics define success for this feature?
+- How will we know if this solves the problem?
 
-- Research documentation for relevant libraries, frameworks, APIs
-- Research current best practices and design patterns
-- Research emerging technologies or trends shaping this area
-- Research technical constraints or dependencies
+### 3. Technical Research & Recommendations
 
-#### 3.2 Market & Competitive Analysis
+#### 3.1 Technology Stack Recommendations
 
-- Research similar solutions in the market
-- Research key competitors or comparable products/features
-- Research market size and adoption trends (if applicable)
-- Research gaps in existing solutions
-- Research unique differentiators or opportunities
+Research and recommend specific technologies:
 
-### 4. Recommendations & Next Steps
+- **Primary libraries/frameworks**: What should be used and why?
+- **APIs and services**: What external services or APIs are relevant?
+- **Data storage**: What database or storage solutions fit this use case?
+- **Infrastructure**: Any specific infrastructure requirements or considerations?
 
-- Is this idea/feature worth pursuing? (Yes/No/Conditional)
-- Recommended approach or implementation strategy
-- Immediate next steps
-- Open questions that require further investigation
+For each recommendation:
+- State your recommendation clearly
+- Explain why (based on research findings)
+- Note any trade-offs or alternatives considered
 
-### 5. References & Resources
+#### 3.2 Architectural Approach
 
-- Links to relevant documentation, articles, or research
-- Competitor product pages or demos
-- Technical specifications or standards
-- Academic papers or case studies (if applicable)
+Research and recommend architectural patterns:
+
+- What architectural patterns are most appropriate? (e.g., event-driven, microservices, monolithic, serverless)
+- What design patterns are commonly used for this type of feature?
+- How do similar solutions in the market architect this?
+
+#### 3.3 Technical Constraints & Blockers
+
+Identify any technical limitations:
+
+- Are there technical blockers that could prevent implementation?
+- What are the hard dependencies or prerequisites?
+- Are there integration challenges with existing systems?
+- What are the scalability considerations?
+
+#### 3.4 Best Practices & Standards
+
+Research industry best practices:
+
+- What are the established best practices for this type of feature?
+- Are there relevant standards or specifications to follow?
+- What do industry leaders do differently?
+- What emerging technologies or trends are shaping this area?
+- What are common pitfalls to avoid?
+
+### 4. Competitive & Market Analysis
+
+Research how others have solved this:
+
+**Existing Solutions:**
+- What comparable products or features exist?
+- How do competitors approach this problem?
+- What can we learn from their implementations?
+
+**Market Insights:**
+- What trends are shaping this space?
+- Are there emerging technologies that could impact this?
+- What makes certain solutions more successful than others?
+
+**Differentiation Opportunities:**
+- What gaps exist in current solutions?
+- What could we do differently or better?
+- What unique value could we provide?
+
+### 5. Recommendations & Next Steps
+
+Provide a clear, actionable recommendation:
+
+**Recommendation**: Build / Don't Build / Conditional
+
+**Rationale**: 
+- 2-3 paragraphs explaining your recommendation based on research findings
+- If conditional, state the conditions clearly
+
+**Recommended Technical Approach**:
+- High-level technical approach
+- Key technologies to use
+- Architectural pattern to follow
+
+**Next Steps for Planning**:
+- What should the planner agent focus on?
+- What additional information might be needed?
+- Are there open questions that require further investigation?
+
+### 6. References & Resources
+
+Cite all sources used in your research:
+
+- **Documentation**: Links to official docs for recommended libraries/frameworks
+- **Technical Articles**: Industry blogs, technical deep-dives, case studies
+- **Competitor Examples**: Product pages, demos, technical documentation
+- **Standards & Specifications**: Relevant technical standards or RFCs
+- **Research Papers**: Academic papers if applicable
+
+Organize references by category for easy navigation.
 
 ## Research Guidelines
 
-1. **Be Thorough**: Research deeply across all dimensions - technical, business, user experience,
-   and competitive landscape
-2. **Be Objective**: Present both opportunities and challenges fairly
-3. **Be Specific**: Include concrete examples, numbers, and data where possible
-4. **Be Actionable**: Provide clear recommendations
-5. **Cite Sources**: Include links and references for all claims and data
-6. **Think Critically**: Challenge assumptions and identify potential blind spots
-7. **Consider Scale**: Think about how this would work at 10x, 100x, 1000x scale
-8. **User-Centric**: Always consider the end-user perspective
-9. **Web search**: Use web search extensively throughout your research
-10. **Don't Code**: NEVER provide code 
-
-### Format
-
-- **Diagrams**: Use Mermaid, ASCII art, or clear text descriptions
-- **Tables**: Use for comparisons, decision matrices, or structured data
-- **Checklists**: Use `- [ ]` for task lists
-- **Links**: Include working links to external resources
+1. **Web Search First**: Use web search extensively.
+2. **Compare Alternatives**: Never recommend a technology without researching alternatives. Show your reasoning.
+3. **Be Specific**: Instead of "use a modern framework," say "use React 18+ for its concurrent rendering capabilities."
+4. **Cite Everything**: Every claim, recommendation, or best practice should link to a source.
+5. **Think Critically**: Challenge assumptions. Ask "why?" and "what if?"
+6. **Consider Scale**: How would this work at 10x, 100x, 1000x the initial scale?
+7. **Identify Trade-offs**: Every technical decision has trade-offs. Surface them clearly.
 
 ### Tone & Style
 
@@ -101,16 +181,18 @@ so clarity and thoroughness are essential.
 
 ## Output Format
 
-Structure your research as a well-formatted markdown document with:
+Structure your research as a well-formatted Markdown document with:
 
-- Clear hierarchical headings
+- Clear hierarchical headings (`#`, `##`, `###`)
 - Bullet points for readability
 - Tables for comparisons where appropriate
-- Links to external resources
+- Links to external resources with descriptive text
+- Diagrams using Mermaid, ASCII art, or clear text descriptions
+- **Checklists**: Use `- [ ]` for task lists
 
 ## Deliverable
 
-Save your complete research findings in a markdown file named:
+Save your complete research findings in a Markdown file named:
 
 **`.features/research/YYYYMMDD_{short-informative-title}.md`**
 
@@ -132,4 +214,4 @@ This file will be read by other team members and AI agents, so ensure it is:
 
 ---
 
-Begin your research now and create the markdown file with your findings.
+**Begin your deep technical research now. Be thorough. Take your time. The quality of your research directly impacts the quality of the implementation plan that follows.**
