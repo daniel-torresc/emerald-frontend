@@ -1,13 +1,6 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/settings')({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({
-        to: '/login',
-      })
-    }
-  },
+export const Route = createFileRoute('/_authenticated/settings')({
   component: SettingsPage,
 })
 

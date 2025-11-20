@@ -1,14 +1,11 @@
-import { createFileRoute, redirect, Link } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { LoginForm } from '@/features/auth/components/LoginForm'
+import { requireGuest } from '@/shared/lib/routeGuards'
 import logo from '@/assets/logo.png'
 
 export const Route = createFileRoute('/login')({
   beforeLoad: ({ context }) => {
-    if (context.auth.isAuthenticated) {
-      throw redirect({
-        to: '/',
-      })
-    }
+    requireGuest(context)
   },
   component: LoginPage,
 })

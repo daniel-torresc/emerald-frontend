@@ -1,32 +1,13 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { useAuthStore } from '@/features/auth/stores/authStore'
-import { Wallet, TrendingUp, CreditCard, ArrowUpRight, Sparkles, Plus } from 'lucide-react'
+import { Wallet, TrendingUp, CreditCard, ArrowUpRight, Plus } from 'lucide-react'
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createLazyFileRoute('/_authenticated/')({
   component: Dashboard,
 })
 
 function Dashboard() {
-  const user = useAuthStore((state) => state.user)
-
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      {/* Welcome Header with gradient */}
-      <div className="mb-10 animate-fade-in">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="relative icon-wrapper icon-wrapper-xs">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent to-accent-light rounded-lg blur-lg opacity-50" />
-            <Sparkles className="relative icon-xl text-accent" />
-          </div>
-          <h1 className="text-4xl font-bold text-text-primary">
-            Welcome back{user?.username ? `, ${user.username}` : ''}!
-          </h1>
-        </div>
-        <p className="text-text-secondary text-lg ml-11">
-          Here's an overview of your finances at a glance.
-        </p>
-      </div>
-
+    <div className="max-w-7xl mx-auto">
       {/* Stats Cards with vibrant colors */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 animate-slide-in">
         {/* Total Balance Card - Green */}
@@ -97,16 +78,13 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Getting Started Section - colorful */}
+      {/* Getting Started Section - minimalist */}
       <div className="relative bg-white border-2 border-border rounded-3xl p-8 overflow-hidden animate-fade-in shadow-xl [animation-delay:0.1s]">
         {/* Decorative gradient orb */}
         <div className="absolute -right-20 -top-20 w-60 h-60 bg-gradient-to-br from-accent-light/20 to-secondary/10 rounded-full blur-3xl" />
 
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="icon-wrapper icon-wrapper-lg bg-gradient-to-br from-accent to-accent-light rounded-2xl shadow-lg">
-              <Sparkles className="icon-lg text-white" strokeWidth={2.5} />
-            </div>
+          <div className="mb-6">
             <h2 className="text-2xl font-bold text-text-primary">Getting Started</h2>
           </div>
 
@@ -138,7 +116,7 @@ function Dashboard() {
             <div className="group p-6 bg-gradient-to-br from-gray-6 to-white border-2 border-gray-5 hover:border-gray-3 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-pointer">
               <div className="flex items-start gap-3">
                 <div className="icon-wrapper icon-wrapper-sm bg-gradient-to-br from-gray-3 to-gray-2 rounded-xl shadow-md group-hover:shadow-lg transition-shadow">
-                  <Sparkles className="icon-md text-white" strokeWidth={2.5} />
+                  <CreditCard className="icon-md text-white" strokeWidth={2.5} />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-text-primary mb-1">Set Up Categories</h3>
